@@ -1,0 +1,281 @@
+/* 배경이미지 적용*/
+body {
+	z-index: 1;
+    position: relative;
+    min-height: 100vh;
+}
+body::after {
+  	width: 100%;
+  	height: 100%;
+  	content: "";
+  	background: url("../upload/background_v01.jpg");
+  	position: absolute;
+  	top: 0;
+  	left: 0;
+  	z-index: -2;
+ 	opacity: 0.15;
+}
+ /* 글씨체 적용 */
+@font-face{
+   font-family: "Main Font";
+   src: url("main-font.ttf");
+}
+
+@font-face{
+   font-family: "Layout Font";
+   src: url("layout-font.otf"); 
+}
+
+.header,.btn,.pagination{
+   font-family:"Layout Font"; 
+   font-size: 20px;
+}    
+
+.footer{
+   font-family:"Layout Font"; 
+   font-size: 13px;
+}    
+
+.main{
+   font-family:"Main Font";
+   font-weight: bolder;
+   font-size: 20px;
+}
+
+input, textarea{
+	font-family:"Layout Font" !important; 
+	font-size: 15px !important;
+}
+
+/* 이미지 클릭시 크게 보기*/
+.bigPictureWrapper {
+   position: fixed;
+   display: none;
+   justify-content: flex-end;
+   align-items:center;
+   top:55%;
+   width:1%;
+   height:1%;
+   background-color: gray; 
+   z-index: 100;
+   background:rgba(255,255,255,0.5);
+}
+.bigPicture {
+   position: fixed;
+   display:flex;
+   justify-content: inherit;
+   align-items: center;
+   margin-left: 250px;
+}
+
+.bigPicture img {
+   width:500px;
+   height: 400px;
+}
+
+/* 메인배너 동영상 관련 */
+.bannerbox { 
+   width: 100%; 
+   height: 500px; 
+   overflow: hidden;
+   margin: 0px auto; 
+   position: relative; 
+}
+.banner-form { 
+   position: absolute; top: 50%; width: 100%; 
+}
+.banner-text h1 { 
+   margin-top: -50px; text-align: center; font-size: 48px; color: #ffffff; font-weight: bold;
+}
+.banner-text h2 { 
+   margin-top: -24px; text-align: center; font-size: 32px; color: #ffffff; 
+}
+
+/* 마이픽 카드 */
+.myPickrow {
+  display: flex; /* 요소가 늘어나면 차곡차곡 가로로 채워지는데 한 줄로 쭉 늘여 세운다. */
+  flex-wrap: wrap; /* 컨테이너 너비를 넘어가면 다음 줄로 요소를 배치 */
+  justify-content: flex-start;
+}
+
+.card { /* 카페 간략정보도 포함 !*/
+    max-height: 600px;
+    font-size:20px;
+    padding: 10px;
+	margin: 5px;
+	justify-content: center;
+}
+
+/*------------paging용 test도 포함--------------*/
+html *{
+    -webkit-font-smoothing: antialiased;
+}
+.pagination .page-link:focus{
+    box-shadow: none;
+}
+.pagination>.page-item>.page-link, .pagination>.page-item>span {
+    border: 0;
+    border-radius: 30px!important;
+    transition: all .3s;
+    padding: 0 11px !important;
+    margin: 0 3px !important;
+    min-width: 30px;
+    height: 30px;
+    line-height: 30px;
+    color: #999;
+    font-weight: 400;
+    font-size: 12px;
+    text-transform: uppercase;
+    background: 0 0;
+    text-align: center;
+}
+
+.pagination>.page-item.active>a, .pagination>.page-item.active>a:focus, .pagination>.page-item.active>a:hover, .pagination>.page-item.active>span, .pagination>.page-item.active>span:focus, .pagination>.page-item.active>span:hover {
+    background-color: #9c27b0;
+    border-color: #9c27b0;
+    color: #fff;
+    box-shadow: 0 4px 5px 0 rgba(156,39,176,.14), 0 1px 10px 0 rgba(156,39,176,.12), 0 2px 4px -1px rgba(156,39,176,.2);
+}
+
+
+.pagination.pagination-info>.page-item.active>a, .pagination.pagination-info>.page-item.active>a:focus, .pagination.pagination-info>.page-item.active>a:hover, .pagination.pagination-info>.page-item.active>span, .pagination.pagination-info>.page-item.active>span:focus, .pagination.pagination-info>.page-item.active>span:hover {
+    background-color: #00bcd4;
+    border-color: #00bcd4;
+    box-shadow: 0 4px 5px 0 rgba(0,188,212,.14), 0 1px 10px 0 rgba(0,188,212,.12), 0 2px 4px -1px rgba(0,188,212,.2);
+}
+
+
+.pagination.pagination-success>.page-item.active>a, .pagination.pagination-success>.page-item.active>a:focus, .pagination.pagination-success>.page-item.active>a:hover, .pagination.pagination-success>.page-item.active>span, .pagination.pagination-success>.page-item.active>span:focus, .pagination.pagination-success>.page-item.active>span:hover {
+    background-color: #4caf50;
+    border-color: #4caf50;
+    box-shadow: 0 4px 5px 0 rgba(76,175,80,.14), 0 1px 10px 0 rgba(76,175,80,.12), 0 2px 4px -1px rgba(76,175,80,.2);
+}
+
+.pagination.pagination-warning>.page-item.active>a, .pagination.pagination-warning>.page-item.active>a:focus, .pagination.pagination-warning>.page-item.active>a:hover, .pagination.pagination-warning>.page-item.active>span, .pagination.pagination-warning>.page-item.active>span:focus, .pagination.pagination-warning>.page-item.active>span:hover {
+    background-color: #ff9800;
+    border-color: #ff9800;
+    box-shadow: 0 4px 5px 0 rgba(255,152,0,.14), 0 1px 10px 0 rgba(255,152,0,.12), 0 2px 4px -1px rgba(255,152,0,.2);
+}
+
+.pagination.pagination-danger>.page-item.active>a, .pagination.pagination-danger>.page-item.active>a:focus, .pagination.pagination-danger>.page-item.active>a:hover, .pagination.pagination-danger>.page-item.active>span, .pagination.pagination-danger>.page-item.active>span:focus, .pagination.pagination-danger>.page-item.active>span:hover {
+    background-color: #f44336;
+    border-color: #f44336;
+    box-shadow: 0 4px 5px 0 rgba(244,67,54,.14), 0 1px 10px 0 rgba(244,67,54,.12), 0 2px 4px -1px rgba(244,67,54,.2);
+}
+
+/************ CSS 추가 사항 시작************/
+
+/* 전체 이미지 태그 둥그렇게 */
+img {
+	border-radius: 15px !important;
+}
+
+.cafe-simple-card{
+	font-family:"Layout Font";
+	font-size: 15px;
+}
+
+.cafe-simple-card-title{
+    font-size: 30px !important;
+    margin-left: 10px !important;
+    margin-top: 3px !important;
+}
+
+.cafe-detail-info{
+	width:460px;
+	font-family:"Main Font";
+	font-size: 21px;
+	
+	overflow:auto !important; /* 영어 입력 시, 자동 줄바꿈*/
+	margin-left: 8px;
+	margin-top: 8px;
+	
+	/*자동 줄바꿈*/
+	word-wrap: break-word;
+	white-space: pre-line;
+	word-break:break-all;
+}
+
+/* 등록/수정 시, 본문 내용 글자 수 span 영역*/
+#infoCheckResultSpan{
+	float:right;
+}
+
+/* 별로여서 기각됨
+.theme{
+	width: 90%;
+	float: center !important;
+	box-shadow: 5px 5px #b8b0b0;
+	background-color: #dfd3d3 !important;
+	opacity: 0.7 !important;
+	border-radius: 10px !important;
+	padding: 20px;
+	padding-right: 20px;
+	padding-left: 20px;
+}*/
+
+/* 정보 상세보기 페이지 설정 */
+
+/* 상세보기 영역 */
+#cafeDetailCafeTitle {
+   float: left;
+   font-size: 33px;
+   margin-left: 5px;
+}
+
+.myPickStar{
+	float: right;
+	margin-right: 5px;
+	margin-bottom: 10px;
+
+}
+
+/* icon 2x 적용한 부분 사이즈 조금 작게*/
+.fa-2x {
+    font-size: 37px !important;
+}
+
+
+#reviewTitle{
+   float: left;
+   font-size: 28px;
+   margin-left: 10px;
+}
+
+
+
+
+
+/*header 닉네임 크기 조정*/
+#loginNicknameHeader{
+    font-size: 17px !important;
+    margin-bottom: 3px;
+}
+
+/*비밀번호 변경 폼 버튼 위치 조정*/
+#updatePasswordBtn{
+    width: 100%;
+    text-align: center;
+}
+
+
+
+
+
+.beansPickimg {
+  width: 540px;
+  height: 400px;
+  object-fit: cover;
+}
+
+.my-pick-card{
+   font-family:"Layout Font"; 
+   font-size: 18px;	
+}
+
+th{
+	font-size: 25px !important;
+	font-weight: bold !important;
+}
+
+

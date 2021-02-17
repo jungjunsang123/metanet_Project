@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mycompany.myapp.mapper.MemberMapper">
+<resultMap id="memberDTO" type="memberDTO">
+	<result column="id" property="id"/>
+	<result column="password" property="password"/>
+	<result column="name" property="name"/>
+	<result column="cityNum" property="cityNum"/>
+	<result column="nickName" property="nickName"/>
+	<result column="pr" property="pr"/>
+	<result column="registerDate" property="registerDate"/>
+	<result column="updateDate" property="updateDate"/>
+	<result column="authority" property="authority"/>
+</resultMap>
+
+	<insert id="registerMember">
+		insert into member(id,password,name,nickName,cityNum,pr)
+		values(#{id},#{password},#{name},#{nickName},#{cityNum},#{pr})
+	</insert>
+	
+	<select id="listFeed" resultType="postDTO">
+	select * from member m, post p 
+	where m.id=p.id and m.nickname=#{nickName}
+	</select>
+	<select id="detailMember" resultType="memberDTO">
+	select * from member where id=#{id} 
+	</select>
+	
+	<select id="login" resultType="memberDTO">
+	select * from member where id=#{id} and password=#{password}
+	</select>
+	
+
+	<!-- 아이디 중복확인 -->
+ 	<select id="idcheckAjax" resultType="java.lang.String">
+		select count(*) from member where id=#{id}
+	</select>
+	
+	<select id="nickcheckAjax" resultType="java.lang.String">
+		select count(*) from member where nickname=#{nickName}
+	</select>
+	
+	<update id="updateMember">
+		update member set nickName=#{nickName}, pr=#{pr}, cityNum=#{cityNum},updateDate=sysdate,password=#{password} where id=#{id}
+	</update>
+
+	<select id="getRecMemberList" resultType="memberDTO">
+	 select * from (  select * from member ORDER BY DBMS_RANDOM.RANDOM  )
+ 	where  ROWNUM between 1 and 5
+	</select>
+	
+	<select id="getAllLocMember" parameterType="hashmap" resultType="memberDTO">
+	<![CDATA[
+      SELECT *
+      FROM (SELECT rownum as rn, A.*
+           FROM (SELECT * FROM member ORDER BY name asc, cityNum asc) A
+           WHERE rownum <= #{end})
+      WHERE rn >= #{begin}
+	]]>
+	</select>
+	
+	<select id="getMyLocMember" parameterType="hashmap" resultType="memberDTO">
+	<![CDATA[
+      SELECT *
+      FROM (SELECT rownum as rn, A.*
+           FROM (SELECT * FROM member where cityNum=#{cityNum} ORDER BY name asc, cityNum asc) A
+           WHERE rownum <= #{end})
+      WHERE rn >= #{begin} 
+	]]>
+	</select>
+	
+	
+	<select id="countMember" resultType="int">
+	 select count(*) from member
+	</select>
+	
+	<select id="countMember2" resultType="int">
+	 select count(*) from member where cityNum=#{cityNum}
+	</select>
+	
+	<select id="getRecLocalMemberList" resultType="memberDTO" parameterType="String">
+	select * from member where cityNum=#{cityNum} ORDER BY DBMS_RANDOM.RANDOM
+	</select>
+</mapper>

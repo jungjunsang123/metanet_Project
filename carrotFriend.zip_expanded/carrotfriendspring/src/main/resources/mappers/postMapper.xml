@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mycompany.myapp.mapper.PostMapper">
+<resultMap id="memberDTO" type="memberDTO">
+	<result column="id" property="id"/>
+	<result column="password" property="password"/>
+	<result column="name" property="name"/>
+	<result column="cityNum" property="cityNum"/>
+	<result column="nickName" property="nickName"/>
+	<result column="pr" property="pr"/>
+	<result column="registerDate" property="registerDate"/>
+	<result column="updateDate" property="updateDate"/>
+	<result column="authority" property="authority"/>
+</resultMap>
+
+<resultMap id="postDTO" type="postDTO">
+<result column="postNo" property="postNo"/>
+<result column="content" property="content"/>
+<result column="writeDate" property="writeDate"/>
+<result column="image" property="image"/>
+<collection property="memberDTO" resultMap="memberDTO"/>
+</resultMap>
+	
+	<insert id="insertPost">
+		INSERT INTO post(postNo,content,writeDate,image,id)
+		VALUES(post_seq.nextval,
+			#{content},sysdate,#{image},#{memberDTO.id})
+	</insert>
+	
+	<select id="getPostList" resultMap="postDTO">
+		SELECT * from (
+ 		SELECT p.postNo , p.content, p.writedate , p.image, m.nickName, m.cityNum
+ 		FROM post p,member m
+ 		where m.id =p.id   ORDER BY DBMS_RANDOM.RANDOM 
+		)
+		WHERE ROWNUM between 1 and 5 
+	</select>
+	<delete id="deletePost" >
+	delete from post where postNo=#{postNo}
+	</delete>
+	
+	<select id="getPostByPostNo" resultMap="postDTO">
+	select * from post where postNo=#{postNo}
+	</select>
+	
+	<update id="updatePost">
+	update post set content=#{content}, image=#{image} where postNo=#{postNo}
+	</update>
+</mapper>
